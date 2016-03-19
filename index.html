@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>mpm - download all the things!</title>
+  <title>Project Title</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" media="screen" charset="utf-8">
   <link rel="stylesheet" href="main.min.css" media="screen" title="no title" charset="utf-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -12,7 +12,7 @@
   <nav class="nav nav-inline">
     <div class="container">
       <a class="nav-link active">Nav Link - Active</a>d
-      <a class="nav-link">Nav Link</a>
+      <a class="nav-link" href="#information">Nav Link</a>
     </div>
   </nav>
   <div class="pageheader">
@@ -23,193 +23,29 @@
   </div>
 
   <div class="container">
-    <a id="inaction"></a>
+    <a id="information"></a>
     <div class="example">
       <br /><br />
-      <h2>See it in action!</h2>
-      <link rel="stylesheet" type="text/css" href="asciinema-player.css" />
-      <script src="asciinema-player.js"></script>
-      <div id="player-container"></div>
-      <script>
-        asciinema_player.core.CreatePlayer('player-container', 'http://wski.github.io/minecraft-package-manager/asciicast-38211.json', { width: $('.example').width(), height: 30 });
-      </script>
+      <h1>Infomation</h1>
+      <h2>About the project</h2>
     </div>
   </div>
 
-  <div class="container">
-    <a id="install"></a>
-
+  <div class="details">
+    <a id="details"></a>
     <br /><br />
-
-    <h2>You're right, that is sweet!<h2>
-    <h5>...so how do I get it?</h5>
-
-    <p>Installation is dead simple (as long as you have node installed) simply run the following command</p>
-<pre class="highlight">
-npm install -g minecraft-package-manager
-</pre>
-<p>That's it! Now you can provision new minecraft servers dynamically with one simple command and one mpm.json file.</p>
+    <h1>Details</h1>
+    <h2>About the project</h2>
   </div>
 
   <div class="container">
     <a id="docs"></a>
-
     <br /><br />
-    <h2>Now make me an mpm master!<h2>
-    <h5>alright young one, buckle up.</h5>
-<br /><br />
-<a id="flags"></a>
-<h5>Flags <a href="#flags"><i class="fa fa-link"></i></a></h5>
-<pre class="highlight">
--i, install
--a plugin@version or plugin@resource, add a plugin to the mpm.json
--j, install server jar
--p directoryName, custom plugins dir
--s, synchronous installations
---init, create a mpm.json file interactivly
-</pre>
-<br /><br />
-<h5>Basic install</h5>
-<pre class="highlight">
-mpm -ijsp plugins
-</pre>
-
-<br /><br />
-<a id="addplugin"></a>
-<h5>Add a plugin <a href="#addplugin"><i class="fa fa-link"></i></a></h5>
-<p>You can add and install a plugin to your mpm.json quickly using the following.</p>
-<pre class="highlight">
-mpm -ia mcmmo@1.2.3
-</pre>
-or if you do not have a registry use
-<pre class="highlight">
-mpm -ia mcmmo@http://www.bukkit.com/mcmmo/files/mcmmo.jar
-</pre>
-
-<br /><br />
-<a id="variables"></a>
-<h5>Variable Loading <a href="#variables"><i class="fa fa-link"></i></a></h5>
-<p>You can load variables into config files by using the syntax {{address}} in
-your config file and it will be automatically replaced with the associated variable
-within your mpm.json</p>
-<pre class="highlight">
-"variables": {
-  "address": "127.0.0.1",
-  "name": "FullStackMC",
-  "port": "25565"
-}
-</pre>
-
-<br /><br />
-<a id="configs"></a>
-<h5>Configs <a href="#configs"><i class="fa fa-link"></i></a></h5>
-<p>Configs are loaded in the same way as plugins, but you have a few more options.
-If your confing is to be installed at the root use "rootLevel": true. If your config
-should be nested within your specified plugins directory provide the directory.
-<br /><br />
-In the example below mcmmo.yml will be installed as plugins/mcmmo/mcmmo.yml.</p>
-<pre class="highlight">
-"mcmmo.yml": {
-  "location": "mcmmo",
-  "resource": "http://mysweetcdn.io/FullStackMC/configs/mcmmo.yml"
-},
-"server.properties": {
-  "rootLevel": true,
-  "resource": "http://mysweetcdn.io/FullStackMC/configs/server.properties"
-}
-</pre>
-If you have multiple configs with the same name use the following convention. Where `name` is the filename yo be saved of your config.
-<pre class="highlight">
-"mcmmoSettings.yml": {
-  "location": "mcmmo",
-  "name": "mcmmo.yml",
-  "resource": "http://mysweetcdn.io/FullStackMC/configs/mcmmo.yml"
-},
-"killCraftSettings.yml": {
-  "name":"killcraft.yml",
-  "location": "killCraft",
-  "resource": "http://mysweetcdn.io/FullStackMC/configs/killCraft.yml"
-},
-</pre>
-
-<br /><br />
-<a id="registry"></a>
-<h5>Hosting a Registry <a href="#registry"><i class="fa fa-link"></i></a></h5>
-<p>You can download plugins and configs by version number by running your very
-own mpm registry. For right now mpm does not have an officially supported registry
-but creating your own is easy. The registry should accept the following payload</p>
-<pre class="highlight">
-{
-  file: 'mcmmo', // Name of the file we're looking for.
-  version: '0.0.1' // Version of the file expected.
-}
-</pre>
-It should return the following
-<pre class="highlight">
-{
-  success: "http://www.myserver.com/mcmmo.jar" // http(s) or ftp file path to download
-}
-</pre>
-or, if the file is not found
-<pre class="highlight">
-{
-  failed: "some description of the failure reason"
-}
-</pre>
-Finally your mpm config should have the registry url added, then you can simply use
-version numbers for files.
-<pre class="highlight">
-"registry": "http://www.myserver.com/mpm/registry",
-plugins: {
-  "mcmmo": "0.0.1"
-},
-"configs": {
-  "server.properties": {
-    "rootLevel": true,
-    "resource": "0.2.3"
-  }
-}
-</pre>
-
-
-<br /><br />
-<a id="customjars"></a>
-<h5>Custom Jars <a href="#customjars"><i class="fa fa-link"></i></a></h5>
-<p>If your Minecraft stack should use a specific jar, you can provide it in mpm.json.</p>
-<pre class="highlight">
-"jar": "http://getspigot.org/spigot19/spigot_server.jar",
-</pre>
-
-<br /><br />
-<a id="sample"></a>
-<h5>Sample mpm.json <a href="#sample"><i class="fa fa-link"></i></a></h5>
-<pre class="highlight">
-{
-  "name": "FullStackMC",
-  "description": "One file to deploy all the things!",
-  "version": "0.0.1",
-  "registry": "https://mpm.cloud/registry",
-  "jar": "http://getspigot.org/spigot19/spigot_server.jar",
-  "variables": {
-    "address": "127.0.0.1",
-    "name": "FullStackMC",
-    "port": "25565"
-  },
-  "plugins": {
-    "pet-master": "1.0.3"
-  },
-  "configs": {
-    "mcmmo.yml": {
-      "location": "mcmmo",
-      "resource": "1.9"
-    },
-    "server.properties": {
-      "rootLevel": true,
-      "resource": "1.9"
-    }
-  }
-}
-</pre>
+    <h1>Docs</h1>
+    <pre>
+      You can also use code
+      sudo rm -rf /*
+    </pre>
   </div>
 </body>
 </html>
